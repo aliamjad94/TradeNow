@@ -28,9 +28,9 @@ namespace TradeNow
         
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            var result = JsonConvert.DeserializeObject<JsonResultClass>(@"C:\Users\ztech.pk\source\repos\TradeNow\jsondata.json");
+            var result = JsonConvert.DeserializeObject<JsonResultClass>(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json");
             dataGridView1.DataSource = result;
+
         }
 
         private void TradeOrder_Load(object sender, EventArgs e)
@@ -44,22 +44,25 @@ namespace TradeNow
 
             if (orderBox.Text != null && symbolBox.Text != null && quantityBox.Text != null && routeBox.Text != null && ordertypeBox.Text != null)
             {
-                
-                string json = JsonConvert.SerializeObject(traderOrder);
-                File.AppendAllTextAsync(@"C:\Users\ztech.pk\source\repos\TradeNow\jsondata.json", json);
-                MessageBox.Show("Order has been created!");
+       
 
                 traderOrder.OrderID = orderIDbox.TabIndex;
                 traderOrder.Order = orderBox.Text;
                 traderOrder.Symbol = symbolBox.Text;
                 traderOrder.Quantity = Convert.ToUInt32(quantityBox.Text);
-                traderOrder.Price = Convert.ToDouble(priceBox.Text);
+                traderOrder.Price = Convert.ToUInt32(priceBox.Text);
                 traderOrder.Route = routeBox.Text;
                 traderOrder.OrderType = ordertypeBox.Text;
                 traderOrder.Tif = tifBox.Text;
 
                 orderIDbox.Text = Convert.ToString(traderOrder.OrderID);
 
+                string json = JsonConvert.SerializeObject(traderOrder);
+                File.WriteAllTextAsync(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json", json);
+                MessageBox.Show("Order has been created!");
+
+                var result = JsonConvert.DeserializeObject<JsonResultClass>(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json");
+                dataGridView1.DataSource = result;
 
             }
             else

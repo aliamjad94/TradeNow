@@ -1,1 +1,1 @@
-{"OrderID":0,"Order":null,"Symbol":null,"Quantity":0,"Price":0.0,"Route":null,"OrderType":null,"Tif":null}
+{"OrderID":21,"Order":"BUY","Symbol":"ASD","Quantity":12,"Price":12.0,"Route":"ARCA","OrderType":"MKT","Tif":"DAY"}
