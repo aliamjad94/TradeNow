@@ -60,9 +60,13 @@ namespace TradeNow
                 string json = JsonConvert.SerializeObject(traderOrder);
                 File.WriteAllTextAsync(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json", json);
                 MessageBox.Show("Order has been created!");
-
-                var result = JsonConvert.DeserializeObject<JsonResultClass>(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json");
-                dataGridView1.DataSource = result;
+                using (StreamReader r = new StreamReader(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json"))
+                {
+                    string jsonFileContent = r.ReadToEnd();
+                    dataGridView1.DataSource = JsonConvert.DeserializeObject<JsonResultClass>(jsonFileContent);
+                }
+                /*var result = JsonConvert.DeserializeObject<JsonResultClass>(File.ReadAllText(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json"));
+                dataGridView1.DataSource = result;*/
 
             }
             else
