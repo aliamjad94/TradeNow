@@ -26,12 +26,7 @@ namespace TradeNow
         }
 
         
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var result = JsonConvert.DeserializeObject<JsonResultClass>(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json");
-            dataGridView1.DataSource = result;
-
-        }
+ 
 
         private void TradeOrder_Load(object sender, EventArgs e)
         {
@@ -46,16 +41,16 @@ namespace TradeNow
             {
        
 
-                traderOrder.OrderID = orderIDbox.TabIndex;
+                traderOrder.OrderID = orderIDbox.TabIndex.ToString();
                 traderOrder.Order = orderBox.Text;
                 traderOrder.Symbol = symbolBox.Text;
-                traderOrder.Quantity = Convert.ToUInt32(quantityBox.Text);
-                traderOrder.Price = Convert.ToUInt32(priceBox.Text);
+                traderOrder.Quantity = quantityBox.Text;
+                traderOrder.Price = priceBox.Text;
                 traderOrder.Route = routeBox.Text;
                 traderOrder.OrderType = ordertypeBox.Text;
                 traderOrder.Tif = tifBox.Text;
 
-                orderIDbox.Text = Convert.ToString(traderOrder.OrderID);
+                /*orderIDbox.Text = Convert.ToString(traderOrder.OrderID);*/
 
                 string json = JsonConvert.SerializeObject(traderOrder);
                 File.WriteAllTextAsync(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json", json);
@@ -63,7 +58,10 @@ namespace TradeNow
                 using (StreamReader r = new StreamReader(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json"))
                 {
                     string jsonFileContent = r.ReadToEnd();
-                    dataGridView1.DataSource = JsonConvert.DeserializeObject<JsonResultClass>(jsonFileContent);
+                    var result = JsonConvert.DeserializeObject<TraderClass>(jsonFileContent);
+                    var resultList = new List<TraderClass> { result };
+                    dataGridView1.DataSource = resultList;
+                    
                 }
                 /*var result = JsonConvert.DeserializeObject<JsonResultClass>(File.ReadAllText(@"C:\Users\ztech.pk\source\repos\TradeApp\TradeNow\jsondata.json"));
                 dataGridView1.DataSource = result;*/
@@ -103,7 +101,9 @@ namespace TradeNow
             main.Show();
         }
 
-        
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
+        }
     }
 }
