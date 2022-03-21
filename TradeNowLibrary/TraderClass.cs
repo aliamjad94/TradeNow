@@ -18,4 +18,5 @@ namespace TradeNowLibrary
         public string Tif { get; set; }
 
     }
+
 }
